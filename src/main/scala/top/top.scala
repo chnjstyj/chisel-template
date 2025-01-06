@@ -15,6 +15,15 @@ class TOP extends Module {
 
 }
 
+class rat(
+  val checkpoints:Int,
+) extends Module{
+  
+
+  val fifo = Module(new FIFO(5,32)) 
+
+}
+
 /**
  * Generate Verilog sources and save it in file GCD.v
  */

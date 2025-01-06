@@ -3,7 +3,7 @@ package top
 import chisel3._
 import chisel3.util._
 
-class MyFIFO(width: Int, depth: Int) extends Module {
+class FIFO(width: Int, depth: Int) extends Module {
   val io = IO(new Bundle {
     val enq = Flipped(Decoupled(UInt(width.W))) // 输入接口
     val deq = Decoupled(UInt(width.W))          // 输出接口
