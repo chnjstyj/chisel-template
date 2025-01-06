@@ -11,16 +11,24 @@ import chisel3.experimental._
 
 class TOP extends Module {
 
-  val fifo = Module(new MyFIFO(8, 16))
+  val rat = Module(new rat(4,8,4,2))
 
 }
 
 class rat(
   val checkpoints:Int,
+  val pregs_width:Int, //log2(pregs_num)
+  val read_ports:Int,
+  val write_ports:Int,
 ) extends Module{
-  
+  val io = IO(new Bundle{
+    val read = Input(Vec(read_ports, UInt(pregs_width.W)))
+    val write = Input(Vec(write_ports, UInt(pregs_width.W)))
+  })
 
-  val fifo = Module(new FIFO(5,32)) 
+  val fifo = Module(new MultiPortFIFO(pregs_width,32,read_ports,write_ports)) 
+
+
 
 }
 
