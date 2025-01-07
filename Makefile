@@ -1,9 +1,12 @@
 verilog:
-	mill -i top.test.runMain top.TOP --help
-	#find . -name "*.sv" -exec sh -c 'mv "$$1" "vsrc/$${1%.sv}.v"' _ {} \;
+	mill -i top.test.runMain top.TOP 
+
+VSRC := $(shell find ./vsrc -name "*.sv")
 
 sim:verilog 
-	verilator -cc --exe --build -j vsrc/TOP.v csrc/sim_main.cpp
+	verilator -cc --exe --build -j $(VSRC) --top-module TOP -I./vsrc \
+	--timescale "1ns/1ns" --savable --trace-fst -MMD --build -cc --autoflush \
+	-O3 --x-assign fast --x-initial fast --noassert csrc/sim_main.cpp
 
 clean:
 	rm -rf vsrc/*
