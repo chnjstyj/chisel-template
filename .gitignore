@@ -1,4 +1,5 @@
 obj_dir/
+*.fst
 ### Project Specific stuff
 test_run_dir/*
 ### XilinxISE template

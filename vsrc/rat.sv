@@ -2,31 +2,778 @@
 module rat(
   input        clock,
                reset,
-  output       io_read_0_valid,
-  output [7:0] io_read_0_bits,
-  output       io_read_1_valid,
-  output [7:0] io_read_1_bits,
-  output       io_read_2_valid,
-  output [7:0] io_read_2_bits,
-  input        io_read_3_ready,
-  output       io_read_3_valid,
-  output [7:0] io_read_3_bits,
-  input  [7:0] io_write_1_bits
+  input  [4:0] io_read_arch_idx_0,
+               io_read_arch_idx_1,
+               io_read_arch_idx_2,
+               io_read_arch_idx_3,
+  output [7:0] io_read_pyhsical_o_0,
+               io_read_pyhsical_o_1,
+               io_read_pyhsical_o_2,
+               io_read_pyhsical_o_3,
+  input  [4:0] io_write_arch_idx_0,
+               io_write_arch_idx_1,
+  input        io_write_en_0,
+               io_write_en_1,
+  input  [7:0] io_write_pyhsical_0,
+               io_write_pyhsical_1,
+  input        io_bak_en,
+               io_rev_en
 );
 
-  MultiPortFIFO fifo (
-    .clock          (clock),
-    .reset          (reset),
-    .io_enq_1_bits  (io_write_1_bits),
-    .io_deq_0_valid (io_read_0_valid),
-    .io_deq_0_bits  (io_read_0_bits),
-    .io_deq_1_valid (io_read_1_valid),
-    .io_deq_1_bits  (io_read_1_bits),
-    .io_deq_2_valid (io_read_2_valid),
-    .io_deq_2_bits  (io_read_2_bits),
-    .io_deq_3_ready (io_read_3_ready),
-    .io_deq_3_valid (io_read_3_valid),
-    .io_deq_3_bits  (io_read_3_bits)
-  );
+  reg  [7:0]       table_0;
+  reg  [7:0]       table_1;
+  reg  [7:0]       table_2;
+  reg  [7:0]       table_3;
+  reg  [7:0]       table_4;
+  reg  [7:0]       table_5;
+  reg  [7:0]       table_6;
+  reg  [7:0]       table_7;
+  reg  [7:0]       table_8;
+  reg  [7:0]       table_9;
+  reg  [7:0]       table_10;
+  reg  [7:0]       table_11;
+  reg  [7:0]       table_12;
+  reg  [7:0]       table_13;
+  reg  [7:0]       table_14;
+  reg  [7:0]       table_15;
+  reg  [7:0]       table_16;
+  reg  [7:0]       table_17;
+  reg  [7:0]       table_18;
+  reg  [7:0]       table_19;
+  reg  [7:0]       table_20;
+  reg  [7:0]       table_21;
+  reg  [7:0]       table_22;
+  reg  [7:0]       table_23;
+  reg  [7:0]       table_24;
+  reg  [7:0]       table_25;
+  reg  [7:0]       table_26;
+  reg  [7:0]       table_27;
+  reg  [7:0]       table_28;
+  reg  [7:0]       table_29;
+  reg  [7:0]       table_30;
+  reg  [7:0]       table_31;
+  reg  [7:0]       table_bak_0_0;
+  reg  [7:0]       table_bak_0_1;
+  reg  [7:0]       table_bak_0_2;
+  reg  [7:0]       table_bak_0_3;
+  reg  [7:0]       table_bak_0_4;
+  reg  [7:0]       table_bak_0_5;
+  reg  [7:0]       table_bak_0_6;
+  reg  [7:0]       table_bak_0_7;
+  reg  [7:0]       table_bak_0_8;
+  reg  [7:0]       table_bak_0_9;
+  reg  [7:0]       table_bak_0_10;
+  reg  [7:0]       table_bak_0_11;
+  reg  [7:0]       table_bak_0_12;
+  reg  [7:0]       table_bak_0_13;
+  reg  [7:0]       table_bak_0_14;
+  reg  [7:0]       table_bak_0_15;
+  reg  [7:0]       table_bak_0_16;
+  reg  [7:0]       table_bak_0_17;
+  reg  [7:0]       table_bak_0_18;
+  reg  [7:0]       table_bak_0_19;
+  reg  [7:0]       table_bak_0_20;
+  reg  [7:0]       table_bak_0_21;
+  reg  [7:0]       table_bak_0_22;
+  reg  [7:0]       table_bak_0_23;
+  reg  [7:0]       table_bak_0_24;
+  reg  [7:0]       table_bak_0_25;
+  reg  [7:0]       table_bak_0_26;
+  reg  [7:0]       table_bak_0_27;
+  reg  [7:0]       table_bak_0_28;
+  reg  [7:0]       table_bak_0_29;
+  reg  [7:0]       table_bak_0_30;
+  reg  [7:0]       table_bak_0_31;
+  reg  [7:0]       table_bak_1_0;
+  reg  [7:0]       table_bak_1_1;
+  reg  [7:0]       table_bak_1_2;
+  reg  [7:0]       table_bak_1_3;
+  reg  [7:0]       table_bak_1_4;
+  reg  [7:0]       table_bak_1_5;
+  reg  [7:0]       table_bak_1_6;
+  reg  [7:0]       table_bak_1_7;
+  reg  [7:0]       table_bak_1_8;
+  reg  [7:0]       table_bak_1_9;
+  reg  [7:0]       table_bak_1_10;
+  reg  [7:0]       table_bak_1_11;
+  reg  [7:0]       table_bak_1_12;
+  reg  [7:0]       table_bak_1_13;
+  reg  [7:0]       table_bak_1_14;
+  reg  [7:0]       table_bak_1_15;
+  reg  [7:0]       table_bak_1_16;
+  reg  [7:0]       table_bak_1_17;
+  reg  [7:0]       table_bak_1_18;
+  reg  [7:0]       table_bak_1_19;
+  reg  [7:0]       table_bak_1_20;
+  reg  [7:0]       table_bak_1_21;
+  reg  [7:0]       table_bak_1_22;
+  reg  [7:0]       table_bak_1_23;
+  reg  [7:0]       table_bak_1_24;
+  reg  [7:0]       table_bak_1_25;
+  reg  [7:0]       table_bak_1_26;
+  reg  [7:0]       table_bak_1_27;
+  reg  [7:0]       table_bak_1_28;
+  reg  [7:0]       table_bak_1_29;
+  reg  [7:0]       table_bak_1_30;
+  reg  [7:0]       table_bak_1_31;
+  reg  [7:0]       table_bak_2_0;
+  reg  [7:0]       table_bak_2_1;
+  reg  [7:0]       table_bak_2_2;
+  reg  [7:0]       table_bak_2_3;
+  reg  [7:0]       table_bak_2_4;
+  reg  [7:0]       table_bak_2_5;
+  reg  [7:0]       table_bak_2_6;
+  reg  [7:0]       table_bak_2_7;
+  reg  [7:0]       table_bak_2_8;
+  reg  [7:0]       table_bak_2_9;
+  reg  [7:0]       table_bak_2_10;
+  reg  [7:0]       table_bak_2_11;
+  reg  [7:0]       table_bak_2_12;
+  reg  [7:0]       table_bak_2_13;
+  reg  [7:0]       table_bak_2_14;
+  reg  [7:0]       table_bak_2_15;
+  reg  [7:0]       table_bak_2_16;
+  reg  [7:0]       table_bak_2_17;
+  reg  [7:0]       table_bak_2_18;
+  reg  [7:0]       table_bak_2_19;
+  reg  [7:0]       table_bak_2_20;
+  reg  [7:0]       table_bak_2_21;
+  reg  [7:0]       table_bak_2_22;
+  reg  [7:0]       table_bak_2_23;
+  reg  [7:0]       table_bak_2_24;
+  reg  [7:0]       table_bak_2_25;
+  reg  [7:0]       table_bak_2_26;
+  reg  [7:0]       table_bak_2_27;
+  reg  [7:0]       table_bak_2_28;
+  reg  [7:0]       table_bak_2_29;
+  reg  [7:0]       table_bak_2_30;
+  reg  [7:0]       table_bak_2_31;
+  reg  [7:0]       table_bak_3_0;
+  reg  [7:0]       table_bak_3_1;
+  reg  [7:0]       table_bak_3_2;
+  reg  [7:0]       table_bak_3_3;
+  reg  [7:0]       table_bak_3_4;
+  reg  [7:0]       table_bak_3_5;
+  reg  [7:0]       table_bak_3_6;
+  reg  [7:0]       table_bak_3_7;
+  reg  [7:0]       table_bak_3_8;
+  reg  [7:0]       table_bak_3_9;
+  reg  [7:0]       table_bak_3_10;
+  reg  [7:0]       table_bak_3_11;
+  reg  [7:0]       table_bak_3_12;
+  reg  [7:0]       table_bak_3_13;
+  reg  [7:0]       table_bak_3_14;
+  reg  [7:0]       table_bak_3_15;
+  reg  [7:0]       table_bak_3_16;
+  reg  [7:0]       table_bak_3_17;
+  reg  [7:0]       table_bak_3_18;
+  reg  [7:0]       table_bak_3_19;
+  reg  [7:0]       table_bak_3_20;
+  reg  [7:0]       table_bak_3_21;
+  reg  [7:0]       table_bak_3_22;
+  reg  [7:0]       table_bak_3_23;
+  reg  [7:0]       table_bak_3_24;
+  reg  [7:0]       table_bak_3_25;
+  reg  [7:0]       table_bak_3_26;
+  reg  [7:0]       table_bak_3_27;
+  reg  [7:0]       table_bak_3_28;
+  reg  [7:0]       table_bak_3_29;
+  reg  [7:0]       table_bak_3_30;
+  reg  [7:0]       table_bak_3_31;
+  wire [31:0][7:0] _GEN =
+    {{table_31},
+     {table_30},
+     {table_29},
+     {table_28},
+     {table_27},
+     {table_26},
+     {table_25},
+     {table_24},
+     {table_23},
+     {table_22},
+     {table_21},
+     {table_20},
+     {table_19},
+     {table_18},
+     {table_17},
+     {table_16},
+     {table_15},
+     {table_14},
+     {table_13},
+     {table_12},
+     {table_11},
+     {table_10},
+     {table_9},
+     {table_8},
+     {table_7},
+     {table_6},
+     {table_5},
+     {table_4},
+     {table_3},
+     {table_2},
+     {table_1},
+     {table_0}};
+  always @(posedge clock) begin
+    if (reset) begin
+      table_0 <= 8'h0;
+      table_1 <= 8'h0;
+      table_2 <= 8'h0;
+      table_3 <= 8'h0;
+      table_4 <= 8'h0;
+      table_5 <= 8'h0;
+      table_6 <= 8'h0;
+      table_7 <= 8'h0;
+      table_8 <= 8'h0;
+      table_9 <= 8'h0;
+      table_10 <= 8'h0;
+      table_11 <= 8'h0;
+      table_12 <= 8'h0;
+      table_13 <= 8'h0;
+      table_14 <= 8'h0;
+      table_15 <= 8'h0;
+      table_16 <= 8'h0;
+      table_17 <= 8'h0;
+      table_18 <= 8'h0;
+      table_19 <= 8'h0;
+      table_20 <= 8'h0;
+      table_21 <= 8'h0;
+      table_22 <= 8'h0;
+      table_23 <= 8'h0;
+      table_24 <= 8'h0;
+      table_25 <= 8'h0;
+      table_26 <= 8'h0;
+      table_27 <= 8'h0;
+      table_28 <= 8'h0;
+      table_29 <= 8'h0;
+      table_30 <= 8'h0;
+      table_31 <= 8'h0;
+      table_bak_0_0 <= 8'h0;
+      table_bak_0_1 <= 8'h0;
+      table_bak_0_2 <= 8'h0;
+      table_bak_0_3 <= 8'h0;
+      table_bak_0_4 <= 8'h0;
+      table_bak_0_5 <= 8'h0;
+      table_bak_0_6 <= 8'h0;
+      table_bak_0_7 <= 8'h0;
+      table_bak_0_8 <= 8'h0;
+      table_bak_0_9 <= 8'h0;
+      table_bak_0_10 <= 8'h0;
+      table_bak_0_11 <= 8'h0;
+      table_bak_0_12 <= 8'h0;
+      table_bak_0_13 <= 8'h0;
+      table_bak_0_14 <= 8'h0;
+      table_bak_0_15 <= 8'h0;
+      table_bak_0_16 <= 8'h0;
+      table_bak_0_17 <= 8'h0;
+      table_bak_0_18 <= 8'h0;
+      table_bak_0_19 <= 8'h0;
+      table_bak_0_20 <= 8'h0;
+      table_bak_0_21 <= 8'h0;
+      table_bak_0_22 <= 8'h0;
+      table_bak_0_23 <= 8'h0;
+      table_bak_0_24 <= 8'h0;
+      table_bak_0_25 <= 8'h0;
+      table_bak_0_26 <= 8'h0;
+      table_bak_0_27 <= 8'h0;
+      table_bak_0_28 <= 8'h0;
+      table_bak_0_29 <= 8'h0;
+      table_bak_0_30 <= 8'h0;
+      table_bak_0_31 <= 8'h0;
+      table_bak_1_0 <= 8'h0;
+      table_bak_1_1 <= 8'h0;
+      table_bak_1_2 <= 8'h0;
+      table_bak_1_3 <= 8'h0;
+      table_bak_1_4 <= 8'h0;
+      table_bak_1_5 <= 8'h0;
+      table_bak_1_6 <= 8'h0;
+      table_bak_1_7 <= 8'h0;
+      table_bak_1_8 <= 8'h0;
+      table_bak_1_9 <= 8'h0;
+      table_bak_1_10 <= 8'h0;
+      table_bak_1_11 <= 8'h0;
+      table_bak_1_12 <= 8'h0;
+      table_bak_1_13 <= 8'h0;
+      table_bak_1_14 <= 8'h0;
+      table_bak_1_15 <= 8'h0;
+      table_bak_1_16 <= 8'h0;
+      table_bak_1_17 <= 8'h0;
+      table_bak_1_18 <= 8'h0;
+      table_bak_1_19 <= 8'h0;
+      table_bak_1_20 <= 8'h0;
+      table_bak_1_21 <= 8'h0;
+      table_bak_1_22 <= 8'h0;
+      table_bak_1_23 <= 8'h0;
+      table_bak_1_24 <= 8'h0;
+      table_bak_1_25 <= 8'h0;
+      table_bak_1_26 <= 8'h0;
+      table_bak_1_27 <= 8'h0;
+      table_bak_1_28 <= 8'h0;
+      table_bak_1_29 <= 8'h0;
+      table_bak_1_30 <= 8'h0;
+      table_bak_1_31 <= 8'h0;
+      table_bak_2_0 <= 8'h0;
+      table_bak_2_1 <= 8'h0;
+      table_bak_2_2 <= 8'h0;
+      table_bak_2_3 <= 8'h0;
+      table_bak_2_4 <= 8'h0;
+      table_bak_2_5 <= 8'h0;
+      table_bak_2_6 <= 8'h0;
+      table_bak_2_7 <= 8'h0;
+      table_bak_2_8 <= 8'h0;
+      table_bak_2_9 <= 8'h0;
+      table_bak_2_10 <= 8'h0;
+      table_bak_2_11 <= 8'h0;
+      table_bak_2_12 <= 8'h0;
+      table_bak_2_13 <= 8'h0;
+      table_bak_2_14 <= 8'h0;
+      table_bak_2_15 <= 8'h0;
+      table_bak_2_16 <= 8'h0;
+      table_bak_2_17 <= 8'h0;
+      table_bak_2_18 <= 8'h0;
+      table_bak_2_19 <= 8'h0;
+      table_bak_2_20 <= 8'h0;
+      table_bak_2_21 <= 8'h0;
+      table_bak_2_22 <= 8'h0;
+      table_bak_2_23 <= 8'h0;
+      table_bak_2_24 <= 8'h0;
+      table_bak_2_25 <= 8'h0;
+      table_bak_2_26 <= 8'h0;
+      table_bak_2_27 <= 8'h0;
+      table_bak_2_28 <= 8'h0;
+      table_bak_2_29 <= 8'h0;
+      table_bak_2_30 <= 8'h0;
+      table_bak_2_31 <= 8'h0;
+      table_bak_3_0 <= 8'h0;
+      table_bak_3_1 <= 8'h0;
+      table_bak_3_2 <= 8'h0;
+      table_bak_3_3 <= 8'h0;
+      table_bak_3_4 <= 8'h0;
+      table_bak_3_5 <= 8'h0;
+      table_bak_3_6 <= 8'h0;
+      table_bak_3_7 <= 8'h0;
+      table_bak_3_8 <= 8'h0;
+      table_bak_3_9 <= 8'h0;
+      table_bak_3_10 <= 8'h0;
+      table_bak_3_11 <= 8'h0;
+      table_bak_3_12 <= 8'h0;
+      table_bak_3_13 <= 8'h0;
+      table_bak_3_14 <= 8'h0;
+      table_bak_3_15 <= 8'h0;
+      table_bak_3_16 <= 8'h0;
+      table_bak_3_17 <= 8'h0;
+      table_bak_3_18 <= 8'h0;
+      table_bak_3_19 <= 8'h0;
+      table_bak_3_20 <= 8'h0;
+      table_bak_3_21 <= 8'h0;
+      table_bak_3_22 <= 8'h0;
+      table_bak_3_23 <= 8'h0;
+      table_bak_3_24 <= 8'h0;
+      table_bak_3_25 <= 8'h0;
+      table_bak_3_26 <= 8'h0;
+      table_bak_3_27 <= 8'h0;
+      table_bak_3_28 <= 8'h0;
+      table_bak_3_29 <= 8'h0;
+      table_bak_3_30 <= 8'h0;
+      table_bak_3_31 <= 8'h0;
+    end
+    else begin
+      if (io_rev_en) begin
+        table_0 <= table_bak_0_0;
+        table_1 <= table_bak_0_1;
+        table_2 <= table_bak_0_2;
+        table_3 <= table_bak_0_3;
+        table_4 <= table_bak_0_4;
+        table_5 <= table_bak_0_5;
+        table_6 <= table_bak_0_6;
+        table_7 <= table_bak_0_7;
+        table_8 <= table_bak_0_8;
+        table_9 <= table_bak_0_9;
+        table_10 <= table_bak_0_10;
+        table_11 <= table_bak_0_11;
+        table_12 <= table_bak_0_12;
+        table_13 <= table_bak_0_13;
+        table_14 <= table_bak_0_14;
+        table_15 <= table_bak_0_15;
+        table_16 <= table_bak_0_16;
+        table_17 <= table_bak_0_17;
+        table_18 <= table_bak_0_18;
+        table_19 <= table_bak_0_19;
+        table_20 <= table_bak_0_20;
+        table_21 <= table_bak_0_21;
+        table_22 <= table_bak_0_22;
+        table_23 <= table_bak_0_23;
+        table_24 <= table_bak_0_24;
+        table_25 <= table_bak_0_25;
+        table_26 <= table_bak_0_26;
+        table_27 <= table_bak_0_27;
+        table_28 <= table_bak_0_28;
+        table_29 <= table_bak_0_29;
+        table_30 <= table_bak_0_30;
+        table_31 <= table_bak_0_31;
+        table_bak_0_0 <= table_bak_1_0;
+        table_bak_0_1 <= table_bak_1_1;
+        table_bak_0_2 <= table_bak_1_2;
+        table_bak_0_3 <= table_bak_1_3;
+        table_bak_0_4 <= table_bak_1_4;
+        table_bak_0_5 <= table_bak_1_5;
+        table_bak_0_6 <= table_bak_1_6;
+        table_bak_0_7 <= table_bak_1_7;
+        table_bak_0_8 <= table_bak_1_8;
+        table_bak_0_9 <= table_bak_1_9;
+        table_bak_0_10 <= table_bak_1_10;
+        table_bak_0_11 <= table_bak_1_11;
+        table_bak_0_12 <= table_bak_1_12;
+        table_bak_0_13 <= table_bak_1_13;
+        table_bak_0_14 <= table_bak_1_14;
+        table_bak_0_15 <= table_bak_1_15;
+        table_bak_0_16 <= table_bak_1_16;
+        table_bak_0_17 <= table_bak_1_17;
+        table_bak_0_18 <= table_bak_1_18;
+        table_bak_0_19 <= table_bak_1_19;
+        table_bak_0_20 <= table_bak_1_20;
+        table_bak_0_21 <= table_bak_1_21;
+        table_bak_0_22 <= table_bak_1_22;
+        table_bak_0_23 <= table_bak_1_23;
+        table_bak_0_24 <= table_bak_1_24;
+        table_bak_0_25 <= table_bak_1_25;
+        table_bak_0_26 <= table_bak_1_26;
+        table_bak_0_27 <= table_bak_1_27;
+        table_bak_0_28 <= table_bak_1_28;
+        table_bak_0_29 <= table_bak_1_29;
+        table_bak_0_30 <= table_bak_1_30;
+        table_bak_0_31 <= table_bak_1_31;
+        table_bak_1_0 <= table_bak_2_0;
+        table_bak_1_1 <= table_bak_2_1;
+        table_bak_1_2 <= table_bak_2_2;
+        table_bak_1_3 <= table_bak_2_3;
+        table_bak_1_4 <= table_bak_2_4;
+        table_bak_1_5 <= table_bak_2_5;
+        table_bak_1_6 <= table_bak_2_6;
+        table_bak_1_7 <= table_bak_2_7;
+        table_bak_1_8 <= table_bak_2_8;
+        table_bak_1_9 <= table_bak_2_9;
+        table_bak_1_10 <= table_bak_2_10;
+        table_bak_1_11 <= table_bak_2_11;
+        table_bak_1_12 <= table_bak_2_12;
+        table_bak_1_13 <= table_bak_2_13;
+        table_bak_1_14 <= table_bak_2_14;
+        table_bak_1_15 <= table_bak_2_15;
+        table_bak_1_16 <= table_bak_2_16;
+        table_bak_1_17 <= table_bak_2_17;
+        table_bak_1_18 <= table_bak_2_18;
+        table_bak_1_19 <= table_bak_2_19;
+        table_bak_1_20 <= table_bak_2_20;
+        table_bak_1_21 <= table_bak_2_21;
+        table_bak_1_22 <= table_bak_2_22;
+        table_bak_1_23 <= table_bak_2_23;
+        table_bak_1_24 <= table_bak_2_24;
+        table_bak_1_25 <= table_bak_2_25;
+        table_bak_1_26 <= table_bak_2_26;
+        table_bak_1_27 <= table_bak_2_27;
+        table_bak_1_28 <= table_bak_2_28;
+        table_bak_1_29 <= table_bak_2_29;
+        table_bak_1_30 <= table_bak_2_30;
+        table_bak_1_31 <= table_bak_2_31;
+        table_bak_2_0 <= table_bak_3_0;
+        table_bak_2_1 <= table_bak_3_1;
+        table_bak_2_2 <= table_bak_3_2;
+        table_bak_2_3 <= table_bak_3_3;
+        table_bak_2_4 <= table_bak_3_4;
+        table_bak_2_5 <= table_bak_3_5;
+        table_bak_2_6 <= table_bak_3_6;
+        table_bak_2_7 <= table_bak_3_7;
+        table_bak_2_8 <= table_bak_3_8;
+        table_bak_2_9 <= table_bak_3_9;
+        table_bak_2_10 <= table_bak_3_10;
+        table_bak_2_11 <= table_bak_3_11;
+        table_bak_2_12 <= table_bak_3_12;
+        table_bak_2_13 <= table_bak_3_13;
+        table_bak_2_14 <= table_bak_3_14;
+        table_bak_2_15 <= table_bak_3_15;
+        table_bak_2_16 <= table_bak_3_16;
+        table_bak_2_17 <= table_bak_3_17;
+        table_bak_2_18 <= table_bak_3_18;
+        table_bak_2_19 <= table_bak_3_19;
+        table_bak_2_20 <= table_bak_3_20;
+        table_bak_2_21 <= table_bak_3_21;
+        table_bak_2_22 <= table_bak_3_22;
+        table_bak_2_23 <= table_bak_3_23;
+        table_bak_2_24 <= table_bak_3_24;
+        table_bak_2_25 <= table_bak_3_25;
+        table_bak_2_26 <= table_bak_3_26;
+        table_bak_2_27 <= table_bak_3_27;
+        table_bak_2_28 <= table_bak_3_28;
+        table_bak_2_29 <= table_bak_3_29;
+        table_bak_2_30 <= table_bak_3_30;
+        table_bak_2_31 <= table_bak_3_31;
+      end
+      else begin
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h0)
+          table_0 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h0)
+          table_0 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h1)
+          table_1 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h1)
+          table_1 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h2)
+          table_2 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h2)
+          table_2 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h3)
+          table_3 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h3)
+          table_3 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h4)
+          table_4 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h4)
+          table_4 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h5)
+          table_5 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h5)
+          table_5 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h6)
+          table_6 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h6)
+          table_6 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h7)
+          table_7 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h7)
+          table_7 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h8)
+          table_8 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h8)
+          table_8 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h9)
+          table_9 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h9)
+          table_9 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'hA)
+          table_10 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'hA)
+          table_10 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'hB)
+          table_11 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'hB)
+          table_11 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'hC)
+          table_12 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'hC)
+          table_12 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'hD)
+          table_13 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'hD)
+          table_13 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'hE)
+          table_14 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'hE)
+          table_14 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'hF)
+          table_15 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'hF)
+          table_15 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h10)
+          table_16 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h10)
+          table_16 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h11)
+          table_17 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h11)
+          table_17 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h12)
+          table_18 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h12)
+          table_18 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h13)
+          table_19 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h13)
+          table_19 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h14)
+          table_20 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h14)
+          table_20 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h15)
+          table_21 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h15)
+          table_21 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h16)
+          table_22 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h16)
+          table_22 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h17)
+          table_23 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h17)
+          table_23 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h18)
+          table_24 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h18)
+          table_24 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h19)
+          table_25 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h19)
+          table_25 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h1A)
+          table_26 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h1A)
+          table_26 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h1B)
+          table_27 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h1B)
+          table_27 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h1C)
+          table_28 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h1C)
+          table_28 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h1D)
+          table_29 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h1D)
+          table_29 <= io_write_pyhsical_0;
+        if (io_write_en_1 & io_write_arch_idx_1 == 5'h1E)
+          table_30 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & io_write_arch_idx_0 == 5'h1E)
+          table_30 <= io_write_pyhsical_0;
+        if (io_write_en_1 & (&io_write_arch_idx_1))
+          table_31 <= io_write_pyhsical_1;
+        else if (io_write_en_0 & (&io_write_arch_idx_0))
+          table_31 <= io_write_pyhsical_0;
+        if (io_bak_en) begin
+          table_bak_0_0 <= table_0;
+          table_bak_0_1 <= table_1;
+          table_bak_0_2 <= table_2;
+          table_bak_0_3 <= table_3;
+          table_bak_0_4 <= table_4;
+          table_bak_0_5 <= table_5;
+          table_bak_0_6 <= table_6;
+          table_bak_0_7 <= table_7;
+          table_bak_0_8 <= table_8;
+          table_bak_0_9 <= table_9;
+          table_bak_0_10 <= table_10;
+          table_bak_0_11 <= table_11;
+          table_bak_0_12 <= table_12;
+          table_bak_0_13 <= table_13;
+          table_bak_0_14 <= table_14;
+          table_bak_0_15 <= table_15;
+          table_bak_0_16 <= table_16;
+          table_bak_0_17 <= table_17;
+          table_bak_0_18 <= table_18;
+          table_bak_0_19 <= table_19;
+          table_bak_0_20 <= table_20;
+          table_bak_0_21 <= table_21;
+          table_bak_0_22 <= table_22;
+          table_bak_0_23 <= table_23;
+          table_bak_0_24 <= table_24;
+          table_bak_0_25 <= table_25;
+          table_bak_0_26 <= table_26;
+          table_bak_0_27 <= table_27;
+          table_bak_0_28 <= table_28;
+          table_bak_0_29 <= table_29;
+          table_bak_0_30 <= table_30;
+          table_bak_0_31 <= table_31;
+          table_bak_1_0 <= table_bak_0_0;
+          table_bak_1_1 <= table_bak_0_1;
+          table_bak_1_2 <= table_bak_0_2;
+          table_bak_1_3 <= table_bak_0_3;
+          table_bak_1_4 <= table_bak_0_4;
+          table_bak_1_5 <= table_bak_0_5;
+          table_bak_1_6 <= table_bak_0_6;
+          table_bak_1_7 <= table_bak_0_7;
+          table_bak_1_8 <= table_bak_0_8;
+          table_bak_1_9 <= table_bak_0_9;
+          table_bak_1_10 <= table_bak_0_10;
+          table_bak_1_11 <= table_bak_0_11;
+          table_bak_1_12 <= table_bak_0_12;
+          table_bak_1_13 <= table_bak_0_13;
+          table_bak_1_14 <= table_bak_0_14;
+          table_bak_1_15 <= table_bak_0_15;
+          table_bak_1_16 <= table_bak_0_16;
+          table_bak_1_17 <= table_bak_0_17;
+          table_bak_1_18 <= table_bak_0_18;
+          table_bak_1_19 <= table_bak_0_19;
+          table_bak_1_20 <= table_bak_0_20;
+          table_bak_1_21 <= table_bak_0_21;
+          table_bak_1_22 <= table_bak_0_22;
+          table_bak_1_23 <= table_bak_0_23;
+          table_bak_1_24 <= table_bak_0_24;
+          table_bak_1_25 <= table_bak_0_25;
+          table_bak_1_26 <= table_bak_0_26;
+          table_bak_1_27 <= table_bak_0_27;
+          table_bak_1_28 <= table_bak_0_28;
+          table_bak_1_29 <= table_bak_0_29;
+          table_bak_1_30 <= table_bak_0_30;
+          table_bak_1_31 <= table_bak_0_31;
+          table_bak_2_0 <= table_bak_1_0;
+          table_bak_2_1 <= table_bak_1_1;
+          table_bak_2_2 <= table_bak_1_2;
+          table_bak_2_3 <= table_bak_1_3;
+          table_bak_2_4 <= table_bak_1_4;
+          table_bak_2_5 <= table_bak_1_5;
+          table_bak_2_6 <= table_bak_1_6;
+          table_bak_2_7 <= table_bak_1_7;
+          table_bak_2_8 <= table_bak_1_8;
+          table_bak_2_9 <= table_bak_1_9;
+          table_bak_2_10 <= table_bak_1_10;
+          table_bak_2_11 <= table_bak_1_11;
+          table_bak_2_12 <= table_bak_1_12;
+          table_bak_2_13 <= table_bak_1_13;
+          table_bak_2_14 <= table_bak_1_14;
+          table_bak_2_15 <= table_bak_1_15;
+          table_bak_2_16 <= table_bak_1_16;
+          table_bak_2_17 <= table_bak_1_17;
+          table_bak_2_18 <= table_bak_1_18;
+          table_bak_2_19 <= table_bak_1_19;
+          table_bak_2_20 <= table_bak_1_20;
+          table_bak_2_21 <= table_bak_1_21;
+          table_bak_2_22 <= table_bak_1_22;
+          table_bak_2_23 <= table_bak_1_23;
+          table_bak_2_24 <= table_bak_1_24;
+          table_bak_2_25 <= table_bak_1_25;
+          table_bak_2_26 <= table_bak_1_26;
+          table_bak_2_27 <= table_bak_1_27;
+          table_bak_2_28 <= table_bak_1_28;
+          table_bak_2_29 <= table_bak_1_29;
+          table_bak_2_30 <= table_bak_1_30;
+          table_bak_2_31 <= table_bak_1_31;
+        end
+      end
+      if (io_bak_en) begin
+        table_bak_3_0 <= table_bak_2_0;
+        table_bak_3_1 <= table_bak_2_1;
+        table_bak_3_2 <= table_bak_2_2;
+        table_bak_3_3 <= table_bak_2_3;
+        table_bak_3_4 <= table_bak_2_4;
+        table_bak_3_5 <= table_bak_2_5;
+        table_bak_3_6 <= table_bak_2_6;
+        table_bak_3_7 <= table_bak_2_7;
+        table_bak_3_8 <= table_bak_2_8;
+        table_bak_3_9 <= table_bak_2_9;
+        table_bak_3_10 <= table_bak_2_10;
+        table_bak_3_11 <= table_bak_2_11;
+        table_bak_3_12 <= table_bak_2_12;
+        table_bak_3_13 <= table_bak_2_13;
+        table_bak_3_14 <= table_bak_2_14;
+        table_bak_3_15 <= table_bak_2_15;
+        table_bak_3_16 <= table_bak_2_16;
+        table_bak_3_17 <= table_bak_2_17;
+        table_bak_3_18 <= table_bak_2_18;
+        table_bak_3_19 <= table_bak_2_19;
+        table_bak_3_20 <= table_bak_2_20;
+        table_bak_3_21 <= table_bak_2_21;
+        table_bak_3_22 <= table_bak_2_22;
+        table_bak_3_23 <= table_bak_2_23;
+        table_bak_3_24 <= table_bak_2_24;
+        table_bak_3_25 <= table_bak_2_25;
+        table_bak_3_26 <= table_bak_2_26;
+        table_bak_3_27 <= table_bak_2_27;
+        table_bak_3_28 <= table_bak_2_28;
+        table_bak_3_29 <= table_bak_2_29;
+        table_bak_3_30 <= table_bak_2_30;
+        table_bak_3_31 <= table_bak_2_31;
+      end
+    end
+  end // always @(posedge)
+  assign io_read_pyhsical_o_0 = _GEN[io_read_arch_idx_0];
+  assign io_read_pyhsical_o_1 = _GEN[io_read_arch_idx_1];
+  assign io_read_pyhsical_o_2 = _GEN[io_read_arch_idx_2];
+  assign io_read_pyhsical_o_3 = _GEN[io_read_arch_idx_3];
 endmodule
 
